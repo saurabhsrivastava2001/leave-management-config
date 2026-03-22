@@ -1,0 +1,69 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: identity-service
+          uri: lb://identity-service
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth/(?<segment>.*), /auth/${segment}
+
+        - id: timesheet-service
+          uri: lb://timesheet-service
+          predicates:
+            - Path=/timesheet/**
+          filters:
+            - RewritePath=/timesheet/(?<segment>.*), /timesheet/${segment}
+
+        - id: leave-service
+          uri: lb://leave-service
+          predicates:
+            - Path=/leave/**
+          filters:
+            - RewritePath=/leave/(?<segment>.*), /leave/${segment}
+
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/admin/**
+          filters:
+            - RewritePath=/admin/(?<segment>.*), /admin/${segment}
+
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+jwt:
+  secret: bXlTdXBlclNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbkluTGVhdmVNYW5hZ2VtZW50U3lzdGVtMjAyNg==
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Identity Service
+        url: /auth/v3/api-docs
+      - name: Timesheet Service
+        url: /timesheet/v3/api-docs
+      - name: Leave Service
+        url: /leave/v3/api-docs
+      - name: Admin Service
+        url: /admin/v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
