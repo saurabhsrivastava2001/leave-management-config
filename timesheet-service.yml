@@ -1,0 +1,48 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: timesheet-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/timesheet_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: Mahadev12@a
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+springdoc:
+  api-docs:
+    path: /timesheet/v3/api-docs
+  swagger-ui:
+    path: /timesheet/swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh
+
+app:
+  timesheet:
+    max-hours-per-day: 24
+    max-hours-per-week: 60
