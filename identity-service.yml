@@ -37,9 +37,9 @@ eureka:
 
 springdoc:
   api-docs:
-    path: /auth/v3/api-docs
+    path: /v3/api-docs
   swagger-ui:
-    path: /auth/swagger-ui.html
+    path: /swagger-ui.html
 
 management:
   endpoints:
