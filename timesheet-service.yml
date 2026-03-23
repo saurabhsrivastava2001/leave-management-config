@@ -33,7 +33,7 @@ eureka:
 
 springdoc:
   api-docs:
-    path: /timesheet/v3/api-docs
+    path: /v3/api-docs
   swagger-ui:
     path: /timesheet/swagger-ui.html
 
