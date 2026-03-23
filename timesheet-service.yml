@@ -35,7 +35,7 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   swagger-ui:
-    path: /timesheet/swagger-ui.html
+    path: /swagger-ui.html
 
 management:
   endpoints:
