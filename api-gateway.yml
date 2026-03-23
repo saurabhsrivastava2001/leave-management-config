@@ -5,6 +5,7 @@ server:
 spring:
   application:
     name: api-gateway
+
   cloud:
     gateway:
       routes:
@@ -13,28 +14,28 @@ spring:
           predicates:
             - Path=/auth/**
           filters:
-            - RewritePath=/auth/(?<segment>.*), /auth/${segment}
+            - StripPrefix=1
 
         - id: timesheet-service
           uri: lb://timesheet-service
           predicates:
             - Path=/timesheet/**
           filters:
-            - RewritePath=/timesheet/(?<segment>.*), /timesheet/${segment}
+            - StripPrefix=1
 
         - id: leave-service
           uri: lb://leave-service
           predicates:
             - Path=/leave/**
           filters:
-            - RewritePath=/leave/(?<segment>.*), /leave/${segment}
+            - StripPrefix=1
 
         - id: admin-service
           uri: lb://admin-service
           predicates:
             - Path=/admin/**
           filters:
-            - RewritePath=/admin/(?<segment>.*), /admin/${segment}
+            - StripPrefix=1
 
       discovery:
         locator:
